@@ -1,0 +1,30 @@
+version: '2'
+services:
+  nginx:
+    build: .
+    depends_on:
+     - redmine
+     - owncloud
+    links:
+     - redmine:remine
+     - owncloud:owncloud
+    ports:
+     - "80:80"
+
+  redmine:
+    image: redmine 
+    links:
+      - db:db
+    volumes:
+      - .:/var/www/html
+        
+  owncloud:
+    image: owncloud
+    links:
+      - db:db
+    volumes:
+      - .:/usr/src/redmine/files
+  db:
+    image: orchardup/mysql
+    environment:
+      MYSQL_DATABASE: openup_08
