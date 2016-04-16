@@ -16,15 +16,17 @@ services:
     links:
       - db:db
     volumes:
-      - .:/var/www/html
+      - .:/usr/src/redmine/files
         
   owncloud:
     image: owncloud
     links:
       - db:db
     volumes:
-      - .:/usr/src/redmine/files
+      - .:/var/www/html
   db:
     image: orchardup/mysql
     environment:
-      MYSQL_DATABASE: openup_08
+      -	MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE: openup
+      
